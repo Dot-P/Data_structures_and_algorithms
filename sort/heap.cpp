@@ -1,6 +1,7 @@
 #include<iostream>
 #include<stdio.h>
 #include<algorithm>
+#include<vector>
 
 struct Heap{
     int data[100];
@@ -43,25 +44,26 @@ int delete_min(Heap *h){
     return obj;
 }
 
-int main(void){
+std::vector<int> heap_sort(std::vector<int> array){
+    std::vector<int> res;
     Heap p;
 
-    insert(&p, 3);
-    insert(&p, 10);
-    insert(&p, 2);
-    insert(&p, 100);
-    insert(&p, 5);
-    insert(&p, 1);
+    for(int i=0; i<array.size(); i++){
+        insert(&p, array[i]);
+    }
 
-    for(int i = 0; i<6; i++){
-        std::cout << p.data[i] << " ";
+    for(int i=0; i<array.size(); i++){
+        res.push_back(delete_min(&p));
+    }
+
+    return res;
+}
+
+int main(void){
+    std::vector<int> array = {2, 5, 9, 4, 2, 1, 7, 8};
+    std::vector<int> res = heap_sort(array);
+    for(int i=0; i<res.size(); i++){
+        std::cout << res[i] << " ";
     }
     std::cout << std::endl;
-
-
-    for(int i = 0; i<3; i++){
-        std::cout << delete_min(&p) << " ";
-    }
-    std::cout << std::endl;
-
 }
